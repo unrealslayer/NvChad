@@ -22,6 +22,18 @@ local plugins = {
     end, -- Override to setup mason-lspconfig
   },
 
+  --vim figutive
+  {
+    "tpope/vim-fugitive",
+    lazy = false,
+  },
+
+  --nvim dap
+  {
+    "mfussenegger/nvim-dap",
+    lazy = true,
+  },
+
   -- override plugin configs
   {
     "williamboman/mason.nvim",
