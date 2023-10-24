@@ -4,13 +4,13 @@ local M = {}
 M.general = {
   n = {
     [";"] = { ":", "enter command mode", opts = { nowait = true } },
-    ["<F4>"] = {"<cmd> ClangdSwitchSourceHeader <CR>", "Switch source header"}
+    ["<F4>"] = { "<cmd> ClangdSwitchSourceHeader <CR>", "Switch source header" },
   },
   i = {
-    ["<F4>"] = {"<cmd> ClangdSwitchSourceHeader <CR>", "Switch source header"}
+    ["<F4>"] = { "<cmd> ClangdSwitchSourceHeader <CR>", "Switch source header" },
   },
   v = {
-    ["<F4>"] = {"<cmd> ClangdSwitchSourceHeader <CR>", "Switch source header"}
+    ["<F4>"] = { "<cmd> ClangdSwitchSourceHeader <CR>", "Switch source header" },
   },
 }
 
@@ -21,6 +21,17 @@ M.lspconfig = {
         vim.lsp.buf.declaration()
       end,
       "LSP declaration",
+    },
+  },
+}
+
+M.general = {
+  n = {
+    ["zz"] = {
+      function()
+        require("lazy").home()
+      end,
+      "Open lazy",
     },
   },
 }
