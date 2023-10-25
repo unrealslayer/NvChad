@@ -28,10 +28,73 @@ local plugins = {
     lazy = false,
   },
 
+  -- transparent background
+  {
+    "xiyaowong/transparent.nvim",
+    lazy = false,
+    config = function()
+      require("transparent").setup { -- Optional, you don't have to run setup.
+        groups = { -- table: default groups
+          "Normal",
+          "NormalNC",
+          "Comment",
+          "Constant",
+          "Special",
+          "Identifier",
+          "Statement",
+          "PreProc",
+          "Type",
+          "Underlined",
+          "Todo",
+          "String",
+          "Function",
+          "Conditional",
+          "Repeat",
+          "Operator",
+          "Structure",
+          "LineNr",
+          "NonText",
+          "SignColumn",
+          "CursorLineNr",
+          "EndOfBuffer",
+        },
+        extra_groups = {
+          "NormalFloat", -- plugins which have float panel such as Lazy, Mason, LspInfo
+          "NvimTreeNormal", -- NvimTree
+        },
+        exclude_groups = {}, -- table: groups you don't want to clear
+      }
+    end,
+  },
+
   --nvim dap
   {
     "mfussenegger/nvim-dap",
     lazy = true,
+    config = function()
+      require("dap").adapters.lldb = {
+        type = "executable",
+        command = "/usr/bin/lldb-vscode", -- adjust as needed
+        name = "lldb",
+      }
+
+      local lldb = {
+        name = "Launch lldb",
+        type = "lldb", -- matches the adapter
+        request = "launch", -- could also attach to a currently running process
+        program = function()
+          return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
+        end,
+        cwd = "${workspaceFolder}",
+        stopOnEntry = false,
+        args = {},
+        runInTerminal = false,
+      }
+
+      require("dap").configurations.cpp = {
+        lldb, -- different debuggers or more configurations can be used here
+      }
+    end,
   },
 
   -- override plugin configs
