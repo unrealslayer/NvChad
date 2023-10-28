@@ -5,6 +5,18 @@ M.general = {
   n = {
     [";"] = { ":", "enter command mode", opts = { nowait = true } },
     ["<F4>"] = { "<cmd> ClangdSwitchSourceHeader <CR>", "Switch source header" },
+    ["zz"] = {
+      function()
+        require("lazy").home()
+      end,
+      "Open lazy",
+    },
+    ["tg"] = {
+      function()
+        require("transparent").toggle()
+      end,
+      "Toggle transparent background",
+    },
   },
   i = {
     ["<F4>"] = { "<cmd> ClangdSwitchSourceHeader <CR>", "Switch source header" },
@@ -25,26 +37,21 @@ M.lspconfig = {
   },
 }
 
-M.general = {
-  n = {
-    ["zz"] = {
-      function()
-        require("lazy").home()
-      end,
-      "Open lazy",
-    },
-    ["tg"] = {
-      function()
-        require("transparent").toggle()
-      end,
-      "Toggle transparent background",
-    },
-  },
-}
-
 -- https://github.com/mfussenegger/nvim-dap/blob/master/doc/dap.txt
 M.debug = {
   n = {
+    ["<leader>du"] = {
+      function()
+        require("dapui").toggle()
+      end,
+      "Toggle debug panel",
+    },
+    ["<F3>"] = {
+      function()
+        require("dap.ext.vscode").load_launchjs("./.ide/launch.json", { cppdbg = { "c", "cpp" } })
+      end,
+      "continue",
+    },
     ["<F5>"] = {
       function()
         require("dap").continue()

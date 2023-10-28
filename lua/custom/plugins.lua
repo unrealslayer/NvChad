@@ -22,7 +22,7 @@ local plugins = {
     end, -- Override to setup mason-lspconfig
   },
 
-  --vim figutive
+  -- vim figutive
   {
     "tpope/vim-fugitive",
     lazy = false,
@@ -67,6 +67,17 @@ local plugins = {
     end,
   },
 
+  -- neodev
+  {
+    "folke/neodev.nvim",
+    lazy = false,
+    dependencies = {
+      {
+        "neovim/nvim-lspconfig",
+      },
+    },
+  },
+
   --nvim dap
   {
     "mfussenegger/nvim-dap",
@@ -74,7 +85,7 @@ local plugins = {
     config = function()
       require("dap").adapters.lldb = {
         type = "executable",
-        command = "/usr/bin/lldb-vscode", -- adjust as needed
+        command = "lldb-vscode", -- adjust as needed
         name = "lldb",
       }
 
@@ -94,7 +105,44 @@ local plugins = {
       require("dap").configurations.cpp = {
         lldb, -- different debuggers or more configurations can be used here
       }
+
+      vim.fn.sign_define("DapBreakpoint", { text = "🛑", texthl = "", linehl = "", numhl = "" })
+      vim.fn.sign_define("DapStopped", { text = "▶️", texthl = "", linehl = "", numhl = "" })
     end,
+  },
+
+  -- nvim dap ui
+  {
+    "rcarriga/nvim-dap-ui",
+    lazy = false,
+    dependencies = {
+      {
+        "mfussenegger/nvim-dap",
+      },
+      {
+        "folke/neodev.nvim",
+      },
+    },
+    config = function()
+      require("neodev").setup {
+        library = { plugins = { "nvim-dap-ui" }, types = true },
+      }
+      local dap, dapui = require "dap", require "dapui"
+      dapui.setup()
+      dap.listeners.after.event_initialized["dapui_config"] = function()
+        dapui.open()
+      end
+      -- dap.listeners.before.event_terminated["dapui_config"] = function()
+      --   dapui.close()
+      -- end
+      -- dap.listeners.before.event_exited["dapui_config"] = function()
+      --   dapui.close()
+      -- end
+    end,
+  },
+
+  {
+    "theHamsta/nvim-dap-virtual-text",
   },
 
   -- override plugin configs
