@@ -28,6 +28,13 @@ local plugins = {
     lazy = false,
   },
 
+  -- vim dff
+  {
+    "sindrets/diffview.nvim",
+    lazy = false,
+    config = function() end,
+  },
+
   -- transparent background
   {
     "xiyaowong/transparent.nvim",
