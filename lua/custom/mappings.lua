@@ -3,7 +3,6 @@ local M = {}
 
 M.general = {
   n = {
-    [";"] = { ":", "enter command mode", opts = { nowait = true } },
     ["<F4>"] = { "<cmd> ClangdSwitchSourceHeader <CR>", "Switch source header" },
     ["zz"] = {
       function()
@@ -33,6 +32,31 @@ M.lspconfig = {
         vim.lsp.buf.declaration()
       end,
       "LSP declaration",
+    },
+  },
+}
+
+M.git = {
+  n = {
+    ["<leader>gh"] = {
+      "<cmd> DiffviewFileHistory <CR>",
+      "Show file history",
+    },
+    ["<leader>gf"] = {
+      "<cmd> DiffviewOpen <CR>",
+      "Open diff view",
+    },
+    ["<leader>gc"] = {
+      "<cmd> DiffviewClose <CR>",
+      "Close file history",
+    },
+    ["<leader>gp"] = {
+      "<cmd> Git checkout - <CR>",
+      "Git checkout -",
+    },
+    ["<leader>gg"] = {
+      "<cmd> Git <CR>",
+      "Open git",
     },
   },
 }
