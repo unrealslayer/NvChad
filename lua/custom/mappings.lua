@@ -42,6 +42,10 @@ M.git = {
       "<cmd> DiffviewFileHistory <CR>",
       "Show file history",
     },
+    ["<leader>gn"] = {
+      "<cmd> Neogit <CR>",
+      "Open neogit",
+    },
     ["<leader>gf"] = {
       "<cmd> DiffviewOpen <CR>",
       "Open diff view",
