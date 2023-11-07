@@ -28,11 +28,34 @@ local plugins = {
     lazy = false,
   },
 
-  -- vim dff
+  -- vim diff
   {
     "sindrets/diffview.nvim",
     lazy = false,
-    config = function() end,
+    config = function()
+      require("diffview").setup {
+        view = {
+          merge_tool = {
+            -- Config for conflicted files in diff views during a merge or rebase.
+            layout = "diff3_mixed",
+            disable_diagnostics = true, -- Temporarily disable diagnostics for conflict buffers while in the view.
+            winbar_info = true, -- See ':h diffview-config-view.x.winbar_info'
+          },
+        },
+      }
+    end,
+  },
+
+  {
+    "NeogitOrg/neogit",
+    dependencies = {
+      "nvim-lua/plenary.nvim", -- required
+      "nvim-telescope/telescope.nvim", -- optional
+      "sindrets/diffview.nvim", -- optional
+      -- "ibhagwan/fzf-lua", -- optional
+    },
+    config = true,
+    lazy = false,
   },
 
   -- transparent background
