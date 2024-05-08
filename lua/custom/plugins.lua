@@ -115,7 +115,7 @@ local plugins = {
     config = function()
       require("dap").adapters.lldb = {
         type = "executable",
-        command = "lldb-vscode", -- adjust as needed
+        command = "/usr/local/bin/lldb-vscode", -- adjust as needed
         name = "lldb",
       }
 
@@ -127,9 +127,10 @@ local plugins = {
           return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
         end,
         cwd = "${workspaceFolder}",
-        stopOnEntry = false,
         args = {},
-        runInTerminal = false,
+        stopOnEntry = false,
+        runInTerminal = true,
+        console = "integratedTerminal",
       }
 
       require("dap").configurations.cpp = {

@@ -42,7 +42,7 @@ M.git = {
       "<cmd> DiffviewFileHistory <CR>",
       "Show file history",
     },
-    ["<leader>gn"] = {
+    ["<leader>gg"] = {
       "<cmd> Neogit <CR>",
       "Open neogit",
     },
@@ -58,10 +58,6 @@ M.git = {
       "<cmd> Git checkout - <CR>",
       "Git checkout -",
     },
-    ["<leader>gg"] = {
-      "<cmd> Git <CR>",
-      "Open git",
-    },
   },
 }
 
@@ -76,9 +72,10 @@ M.debug = {
     },
     ["<F3>"] = {
       function()
-        require("dap.ext.vscode").load_launchjs("./.ide/launch.json", { cppdbg = { "c", "cpp" } })
+        require("dapui").toggle()
+        require("dap.ext.vscode").load_launchjs("./scripts/launch.json", { cppdbg = { "c", "cpp", "hpp" } })
       end,
-      "continue",
+      "Launch debug",
     },
     ["<F5>"] = {
       function()
