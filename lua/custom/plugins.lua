@@ -39,7 +39,7 @@ local plugins = {
             -- Config for conflicted files in diff views during a merge or rebase.
             layout = "diff3_mixed",
             disable_diagnostics = true, -- Temporarily disable diagnostics for conflict buffers while in the view.
-            winbar_info = true, -- See ':h diffview-config-view.x.winbar_info'
+            winbar_info = true,         -- See ':h diffview-config-view.x.winbar_info'
           },
         },
       }
@@ -49,9 +49,9 @@ local plugins = {
   {
     "NeogitOrg/neogit",
     dependencies = {
-      "nvim-lua/plenary.nvim", -- required
+      "nvim-lua/plenary.nvim",         -- required
       "nvim-telescope/telescope.nvim", -- optional
-      "sindrets/diffview.nvim", -- optional
+      "sindrets/diffview.nvim",        -- optional
       -- "ibhagwan/fzf-lua", -- optional
     },
     config = true,
@@ -64,7 +64,7 @@ local plugins = {
     lazy = false,
     config = function()
       require("transparent").setup { -- Optional, you don't have to run setup.
-        groups = { -- table: default groups
+        groups = {                   -- table: default groups
           "Normal",
           "NormalNC",
           "Comment",
@@ -89,8 +89,8 @@ local plugins = {
           "EndOfBuffer",
         },
         extra_groups = {
-          "NormalFloat", -- plugins which have float panel such as Lazy, Mason, LspInfo
-          "NvimTreeNormal", -- NvimTree
+          "NormalFloat",     -- plugins which have float panel such as Lazy, Mason, LspInfo
+          "NvimTreeNormal",  -- NvimTree
         },
         exclude_groups = {}, -- table: groups you don't want to clear
       }
@@ -121,7 +121,7 @@ local plugins = {
 
       local lldb = {
         name = "Launch lldb",
-        type = "lldb", -- matches the adapter
+        type = "lldb",      -- matches the adapter
         request = "launch", -- could also attach to a currently running process
         program = function()
           return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
@@ -152,6 +152,9 @@ local plugins = {
       },
       {
         "folke/neodev.nvim",
+      },
+      {
+        "nvim-neotest/nvim-nio",
       },
     },
     config = function()
