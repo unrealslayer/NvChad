@@ -54,8 +54,9 @@ M.mason = {
     "prettier",
 
     -- c/cpp stuff
-    "clangd",
-    "clang-format",
+    -- "clangd",        -- Builded from sources
+    -- "clang-format",  -- Builded from sources
+    "codelldb",
   },
 }
 

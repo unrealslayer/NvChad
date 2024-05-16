@@ -1,6 +1,8 @@
 ---@type MappingsTable
 local M = {}
 
+-- <C-*> = CTRL + *, <S-*> = SHIFT + *, <M-*> = ALT + *
+
 M.general = {
   n = {
     ["<F4>"] = { "<cmd> ClangdSwitchSourceHeader <CR>", "Switch source header" },
@@ -70,37 +72,6 @@ M.debug = {
       end,
       "Toggle debug panel",
     },
-    ["<F3>"] = {
-      function()
-        require("dapui").toggle()
-        require("dap.ext.vscode").load_launchjs("./scripts/launch.json", { cppdbg = { "c", "cpp", "hpp" } })
-      end,
-      "Launch debug",
-    },
-    ["<F5>"] = {
-      function()
-        require("dap").continue()
-      end,
-      "continue",
-    },
-    ["<F10>"] = {
-      function()
-        require("dap").step_over()
-      end,
-      "step over",
-    },
-    ["<F11>"] = {
-      function()
-        require("dap").step_into()
-      end,
-      "step into",
-    },
-    ["<F12>"] = {
-      function()
-        require("dap").step_out()
-      end,
-      "step out",
-    },
     ["<leader>b"] = {
       function()
         require("dap").toggle_breakpoint()
@@ -118,6 +89,78 @@ M.debug = {
         require("dap").run_last()
       end,
       "Restart debugger",
+    },
+    ["<F3>"] = {
+      function()
+        require("dapui").toggle()
+        require("dap.ext.vscode").load_launchjs(
+          vim.fn.getcwd() .. "/scripts/launch.json",
+          { lldb = { "c", "cpp", "hpp" } }
+        )
+      end,
+      "Launch debug",
+    },
+    ["<F5>"] = {
+      function()
+        require("dap.ext.vscode").load_launchjs(
+          vim.fn.getcwd() .. "/scripts/launch.json",
+          { lldb = { "c", "cpp", "hpp" } }
+        )
+        require("dap").continue()
+      end,
+      "Continue",
+    },
+    ["<F10>"] = {
+      function()
+        require("dap").step_over()
+      end,
+      "Step over",
+    },
+    ["<F11>"] = {
+      function()
+        require("dap").step_into()
+      end,
+      "Step into",
+    },
+    ["<F23>"] = { -- Shift + F11
+      function()
+        require("dap").step_out()
+      end,
+      "Step out",
+    },
+  },
+}
+
+M.mason = {
+  n = {
+    ["<leader>mm"] = {
+      "<cmd> Mason <CR>",
+      "Open mason",
+    },
+  },
+}
+
+M.git = {
+  n = {
+    ["<leader>gh"] = {
+      "<cmd> DiffviewFileHistory <CR>",
+      "Show file history",
+    },
+    ["<leader>gg"] = {
+      "<cmd> Neogit <CR>",
+      "Open neogit",
+    },
+    ["<leader>gf"] = {
+      "<cmd> DiffviewOpen <CR>",
+      "Open diff view",
+    },
+    ["<leader>gc"] = {
+      "<cmd> DiffviewClose <CR>",
+      "Close file history",
+    },
+    ["<leader>gp"] = {
+      "<cmd> Git checkout - <CR>",
+      "Git checkout -",
     },
   },
 }

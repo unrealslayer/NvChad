@@ -113,32 +113,14 @@ local plugins = {
     "mfussenegger/nvim-dap",
     lazy = true,
     config = function()
+      vim.fn.sign_define("DapBreakpoint", { text = "🛑", texthl = "", linehl = "", numhl = "" })
+      vim.fn.sign_define("DapStopped", { text = "▶️", texthl = "", linehl = "", numhl = "" })
+
       require("dap").adapters.lldb = {
         type = "executable",
         command = "/usr/local/bin/lldb-vscode", -- adjust as needed
         name = "lldb",
       }
-
-      local lldb = {
-        name = "Launch lldb",
-        type = "lldb",      -- matches the adapter
-        request = "launch", -- could also attach to a currently running process
-        program = function()
-          return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
-        end,
-        cwd = "${workspaceFolder}",
-        args = {},
-        stopOnEntry = false,
-        runInTerminal = true,
-        console = "integratedTerminal",
-      }
-
-      require("dap").configurations.cpp = {
-        lldb, -- different debuggers or more configurations can be used here
-      }
-
-      vim.fn.sign_define("DapBreakpoint", { text = "🛑", texthl = "", linehl = "", numhl = "" })
-      vim.fn.sign_define("DapStopped", { text = "▶️", texthl = "", linehl = "", numhl = "" })
     end,
   },
 
@@ -166,13 +148,26 @@ local plugins = {
       dap.listeners.after.event_initialized["dapui_config"] = function()
         dapui.open()
       end
-      -- dap.listeners.before.event_terminated["dapui_config"] = function()
-      --   dapui.close()
-      -- end
-      -- dap.listeners.before.event_exited["dapui_config"] = function()
-      --   dapui.close()
-      -- end
+      dap.listeners.before.event_terminated["dapui_config"] = function()
+        dapui.close()
+      end
+      dap.listeners.before.event_exited["dapui_config"] = function()
+        dapui.close()
+      end
     end,
+  },
+
+  -- mason nvim dap
+  {
+    "jay-babu/mason-nvim-dap.nvim",
+    event = "VeryLazy",
+    dependencies = {
+      "williamboman/mason.nvim",
+      "mfussenegger/nvim-dap",
+    },
+    opts = {
+      handlers = {},
+    },
   },
 
   {
