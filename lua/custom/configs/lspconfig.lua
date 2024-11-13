@@ -7,7 +7,8 @@ local lspconfig = require "lspconfig"
 local servers = {
   "html",
   "cssls",
-  "tsserver",
+  "ts_ls", -- "tsserver", -- npm install -g typescript-language-server typescript
+  "lua_ls",
   "clangd",
 }
 
