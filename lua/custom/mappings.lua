@@ -188,6 +188,17 @@ M.telescope = {
       end,
       "Find in jump list",
     },
+    ["<leader>gl"] = {
+      function()
+        local file_path = vim.fn.expand "%"
+        require("telescope.builtin").git_bcommits {
+          cwd = vim.fn.getcwd(),
+          prompt_title = "Git Log for " .. file_path,
+          git_command = { "git", "log", "--follow", "--", file_path },
+        }
+      end,
+      "Git log for current file (Telescope)",
+    },
   },
   v = {
     ["<leader>g"] = {
@@ -203,17 +214,6 @@ M.telescope = {
         require("telescope.builtin").find_files { default_text = text }
       end,
       "Find files",
-    },
-    ["<leader>gl"] = {
-      function()
-        local file_path = vim.fn.expand "%"
-        require("telescope.builtin").git_bcommits {
-          cwd = vim.fn.getcwd(),
-          prompt_title = "Git Log for " .. file_path,
-          git_command = { "git", "log", "--follow", "--", file_path },
-        }
-      end,
-      "Git log for current file (Telescope)",
     },
   },
 }
