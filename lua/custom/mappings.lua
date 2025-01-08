@@ -206,9 +206,14 @@ M.telescope = {
     },
     ["<leader>gl"] = {
       function()
-        require("telescope.builtin").git_commits()
+        local file_path = vim.fn.expand "%"
+        require("telescope.builtin").git_bcommits {
+          cwd = vim.fn.getcwd(),
+          prompt_title = "Git Log for " .. file_path,
+          git_command = { "git", "log", "--follow", "--", file_path },
+        }
       end,
-      "Git log (Telescope)",
+      "Git log for current file (Telescope)",
     },
   },
 }
